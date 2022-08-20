@@ -1,4 +1,4 @@
-## Quiz Applicaiton - Joseph Whiteaker 
+## Quiz Application - Joseph Whiteaker 
 
 This application is a 5 question quiz of some fairly easy questions. 
 
