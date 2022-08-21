@@ -19,7 +19,6 @@ type IDataType = {
 	questionNumber: number;
 	userAnswers: IUserAnswer[];
 	temporarySelection: string;
-	doneWithQuiz: boolean;
 };
 
 export default defineComponent({
@@ -29,11 +28,9 @@ export default defineComponent({
 			questionNumber: 0,
 			userAnswers: [],
 			temporarySelection: '',
-			doneWithQuiz: false,
 		};
 	},
 	methods: {
-
 		/**
 		 * handleAnswerSelection - The method that is called when the user selects an answer.
 		 */
@@ -62,12 +59,6 @@ export default defineComponent({
 				answer: userAnswer,
 			});
 
-			// If we are at the end of the questions, then finish the quiz.
-			if (this.questionNumber === this.questions.length) {
-				this.finishQuiz();
-				return;
-			}
-
 			// Increment the question number.
 			this.questionNumber++;
 
@@ -75,23 +66,11 @@ export default defineComponent({
 			this.temporarySelection = '';
 		},
 
-		/**
-		 * finishQuiz - Handles the logic of finishing the quiz.
-		 */
-		finishQuiz: function (): void {
-			console.log('Finished Quiz');
-			this.userAnswers.forEach((answer: IUserAnswer) => {
-				console.log(answer.question + ': ' + answer.answer);
-			});
-
-			this.doneWithQuiz = true;
-		},
-
+	
 		/**
 		 * handleRestartQuiz - Handles the logic of restarting the quiz.
 		 */
 		handleRestartQuiz: function (): void {
-			this.doneWithQuiz = false;
 			this.questionNumber = 0;
 			this.userAnswers = [];
 		},
@@ -122,7 +101,7 @@ export default defineComponent({
 					Results
 				</h1>
 
-			    <!-- The button to redo the quiz -->
+				<!-- The button to redo the quiz -->
 				<button
 					class="bg-white px-2 rounded-lg text-black text-xl h-12 disabled:text-gray-400 disabled:bg-gray-200 disabled:cursor-not-allowed"
 					@click="handleRestartQuiz"
@@ -188,7 +167,7 @@ export default defineComponent({
 					</div>
 				</div>
 			</main>
-			
+
 			<!-- The footer of the quiz -->
 			<footer
 				v-if="Boolean(questions[questionNumber])"
